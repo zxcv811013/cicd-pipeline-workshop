@@ -19,8 +19,10 @@ redis_client = redis.Redis(host=redis_host,port=redis_port)
 # REST API routes
 @app.route("/insert/<key>/<value>", methods=["GET"])
 def insert(key, value):
-    redis_client.set(key, value)
-    return "OK"
+    if redis_client.set(key, value):
+      return "OK"
+    else:
+      abort(500)
 
 @app.route("/get/<key>", methods=["GET"])
 def get(key):
@@ -30,4 +32,4 @@ def get(key):
     return value
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

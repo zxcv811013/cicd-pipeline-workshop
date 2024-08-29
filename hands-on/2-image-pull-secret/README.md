@@ -44,7 +44,7 @@ kubectl get pod <pod-name>
 
 ```bash
 # 生成 secret
-kubectl create secret docker-registry my-secret \
+kubectl create secret docker-registry my-secret -n  \
     --docker-server=<your-registry-server> \
     --docker-username=<your-name> \
     --docker-password=<your-pword>
@@ -59,4 +59,4 @@ kubectl apply -f my-pod.yaml
 kubectl get pod my-pod
 ```
 
-在上述範例中，我們將使用名為 my-secret 的 image pull secret 來拉取名為 nginx:latest 的鏡像。
+在上述範例中，我們將使用名為 my-secret 的 image pull secret 來拉取剛剛建立的鏡像。
