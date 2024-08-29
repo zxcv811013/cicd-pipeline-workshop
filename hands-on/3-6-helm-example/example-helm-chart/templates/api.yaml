@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python
+spec:
+  replicas: {{ .Values.python.replicaCount }}
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      containers:
+      - name: python
+        image: {{ .Values.python.image }}
+        env:
+        {{- range $key, $value := .Values.python.extraEnv }}
+        - name: {{ $key }}
+          value: {{ $value | quote }}
+        {{- end }}
+        - name: REDIS_HOST
+          value: {{ .Values.redis.service.name | quote }}
+        - name: REDIS_PORT
+          value: {{ .Values.redis.service.port | quote }}
+        ports:
+        - containerPort: {{ .Values.python.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.python.service.name }}
+spec:
+  selector:
+    app: python
+  ports:
+  {{- with .Values.python.service}}
+  - port: {{ .port }}
+    targetPort: {{ .targetPort }}
+  {{- end}}
+  type: ClusterIP

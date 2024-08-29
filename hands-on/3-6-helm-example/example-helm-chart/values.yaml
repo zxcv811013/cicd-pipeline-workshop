@@ -1,0 +1,22 @@
+python:
+  replicaCount: 1
+  image: registry.srcmesh.dev/workshop/hahaha:0.1
+  service:
+    name: python-svc
+    port: 5000
+    targetPort: 5000
+  extraEnv:
+    KEY1: value1 
+    KEY2: value2
+
+redis:
+  replicaCount: 1
+  image: redis:latest
+  service:
+    enable: true
+    name: redis-svc
+    port: 6379
+    targetPort: 6379
+
+imagePullSecrets:
+  - name: pull-secret

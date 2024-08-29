@@ -1,0 +1,5 @@
+python:
+  image: MODIFY_TO_YOUR_IMAGE
+
+imagePullSecrets:
+  - name: pull-secret
