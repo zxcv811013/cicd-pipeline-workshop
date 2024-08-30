@@ -19,7 +19,7 @@ spec:
         - containerPort: 6379
 ---
 
-{{- if .Values.redis.service.enable -}}
+{{- if .Values.redis.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
