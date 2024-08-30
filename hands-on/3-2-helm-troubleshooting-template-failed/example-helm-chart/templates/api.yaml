@@ -20,7 +20,7 @@ spec:
         env:
         {{- range $key, $value := .Values.python.extraEnv }}
         - name: {{ $key }}
-          value: {{ $value | qoute }}
+          value: {{ $value | quote }}
         {{- end }}
         - name: REDIS_HOST
           value: redis-svc
@@ -29,6 +29,8 @@ spec:
         ports:
         - containerPort: 5000
 ---
+
+{{- if .Values.python.service.enable -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -40,3 +42,4 @@ spec:
   - port: 5000
     targetPort: 5000
   type: ClusterIP
+{{- end -}}

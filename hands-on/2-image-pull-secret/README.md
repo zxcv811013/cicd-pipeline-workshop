@@ -44,13 +44,13 @@ kubectl get pod <pod-name>
 
 ```bash
 # 生成 secret
-kubectl create secret docker-registry my-secret -n  \
+kubectl create secret docker-registry pull-secret   \
     --docker-server=<your-registry-server> \
     --docker-username=<your-name> \
     --docker-password=<your-pword>
 
 # 查看 secret
-kubectl get secret my-secret -o yaml
+kubectl get secret  pull-secret -o yaml
 
 # 創建 Pod
 kubectl apply -f my-pod.yaml
@@ -59,4 +59,4 @@ kubectl apply -f my-pod.yaml
 kubectl get pod my-pod
 ```
 
-在上述範例中，我們將使用名為 my-secret 的 image pull secret 來拉取剛剛建立的鏡像。
+在上述範例中，我們將使用名為  pull-secret 的 image pull secret 來拉取剛剛建立的鏡像。

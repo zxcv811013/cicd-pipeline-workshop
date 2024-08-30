@@ -1,10 +1,6 @@
 python:
   replicaCount: 1
   image: registry.srcmesh.dev/workshop/python:0.1
-  service:
-    name: python-svc
-    port: 5000
-    targetPort: 5000
   extraEnv:
     KEY1: value1 
     KEY2: value2
