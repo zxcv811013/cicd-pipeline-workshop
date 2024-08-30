@@ -1,6 +1,6 @@
 python:
-  replicaCount: 1
-  image: registry.srcmesh.dev/workshop/hahaha:0.1
+  replicaCount: 2
+  image: registry.srcmesh.dev/workshop/python:0.1
   service:
     name: python-service
     port: 5000
