@@ -25,7 +25,7 @@ helm uninstall [release-name] -n [namespace]
 2. 查看目前的狀態
 3. 再次使用 sync 同步
 
-## 實作 4
+## 實作 5
 1. 查看 ArgoCD 的 pod log
 
 ## demo
