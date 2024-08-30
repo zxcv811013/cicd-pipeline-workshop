@@ -1,5 +1,5 @@
 python:
-  replicaCount: 2
+  replicaCount: 1
   image: registry.srcmesh.dev/workshop/python:0.1
   service:
     name: python-service
