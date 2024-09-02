@@ -27,18 +27,18 @@ spec:
         - name: REDIS_PORT
           value: {{ .Values.demoapp.redis.port }}
         ports:
-        - containerPort: {{ .Values..service.port }}
+        - containerPort: {{ .Values.demoapp.service.port }}
 ---
 {{- if .Values.redis.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.demo-app.service.name }}
+  name: {{ .Values.demoapp.service.name }}
 spec:
   selector:
     app: demo-app
   ports:
-  {{- with .Values.demo-app.service}}
+  {{- with .Values.demoapp.service}}
   - port: {{ .port }}
     targetPort: {{ .targetPort }}
   {{- end}}

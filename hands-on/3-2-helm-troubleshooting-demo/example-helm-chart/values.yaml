@@ -1,4 +1,4 @@
-demo-app:
+demoapp:
   replicaCount: 1
   image: registry.srcmesh.dev/workshop/python:0.1
   service:
