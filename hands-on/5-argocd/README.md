@@ -16,12 +16,12 @@ helm uninstall [release-name] -n [namespace]
 2. 查看目前的狀態
 
 ## 實作 3
-1. 修改 value 裡面的 python replicas 的數量，並推到 github 上
+1. 修改 values.yaml 裡面的 python replicas 的數量，並推到 github 上
 2. 查看目前的狀態
 3. 再次使用 sync 同步
 
 ## 實作 4
-1. 將 k8s 中的 python deplotment 刪除
+1. 將 k8s 中的 python deployment 刪除
 2. 查看目前的狀態
 3. 再次使用 sync 同步
 

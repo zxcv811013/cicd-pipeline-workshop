@@ -1,44 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python
+  name: demoapp
 spec:
-  replicas: {{ .Values.python.replicaCount }}
+  replicas: {{ .Values.demoapp.replicaCount }}
   selector:
     matchLabels:
-      app: python
+      app: demoapp
   template:
     metadata:
       labels:
-        app: python
+        app: demoapp
     spec:
       imagePullSecrets:
       {{- toYaml .Values.imagePullSecrets | nindent 6 }}
       containers:
       - name: python
-        image: {{ .Values.python.image }}
+        image: {{ .Values.demoapp.image }}
         env:
-        {{- range $key, $value := .Values.python.extraEnv }}
+        {{- range $key, $value := .Values.demoapp.extraEnv }}
         - name: {{ $key }}
           value: {{ $value | quote }}
         {{- end }}
         - name: REDIS_HOST
-          value: {{ .Values.python.redis.host | quote }}
+          value: {{ .Values.demoapp.redis.host }}
         - name: REDIS_PORT
-          value: {{ .Values.python.redis.port | quote }}
+          value: {{ .Values.demoapp.redis.port }}
         ports:
-        - containerPort: {{ .Values.python.service.port }}
+        - containerPort: {{ .Values..service.port }}
 ---
+{{- if .Values.redis.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.python.service.name }}
+  name: {{ .Values.demo-app.service.name }}
 spec:
   selector:
-    app: python
+    app: demo-app
   ports:
-  {{- with .Values.python.service}}
+  {{- with .Values.demo-app.service}}
   - port: {{ .port }}
     targetPort: {{ .targetPort }}
   {{- end}}
   type: ClusterIP
+{{- end -}}

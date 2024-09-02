@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: python
 spec:
-  replicas: 1
+  replicas: {{ .Values.python.replicaCount }}
   selector:
     matchLabels:
       app: python
@@ -20,23 +20,27 @@ spec:
         env:
         {{- range $key, $value := .Values.python.extraEnv }}
         - name: {{ $key }}
-          value: {{ $value | quote }}
+          value: {{ $value | quot }}
         {{- end }}
         - name: REDIS_HOST
-          value: redis-svc
+          value: {{ .Values.python.redis.host }}
         - name: REDIS_PORT
-          value: "6379"
+          value: {{ .Values.python.redis.port }}
         ports:
-        - containerPort: 5000
+        - containerPort: {{ .Values.python.service.port }}
 ---
+{{- if .Values.python.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: python-svc
+  name: {{ .Values.python.service.name }}
 spec:
   selector:
     app: python
   ports:
-  - port: 5000
-    targetPort: 5000
+  {{- with .Values.python.service}}
+  - port: {{ .port }}
+    targetPort: {{ .targetPort }}
+  {{- end}}
   type: ClusterIP
+{{- end -}}

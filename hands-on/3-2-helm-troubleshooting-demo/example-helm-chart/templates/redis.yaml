@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: redis
 spec:
-  replicas: {{ .Values.redis.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: redis
@@ -18,11 +18,11 @@ spec:
         ports:
         - containerPort: {{ .Values.redis.service.port }}
 ---
-{{- if .Values.redis.service.enable -}}
+{{- if .Values.redis.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-svc
+  name: {{ .Values.redis.service.name }}
 spec:
   selector:
     app: redis

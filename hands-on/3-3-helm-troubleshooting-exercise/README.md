@@ -19,14 +19,20 @@ helm upgrade [release-name] -n [namespace] example-helm-chart/
 helm template [release-name] -n [namespace] example-helm-chart/
 ```
 
-## 實作 1
 
-**請直接修改 example-helm-chart 的內容，不要額外 copy**
+### 基本 kubernetes log 操作
 
-## 實作 1
 
-執行 helm template [release-name] -n [namespace] example-helm-chart/ 時正常
+```bash
+# 查看 Pod log
+kubectl logs -n [namespace] [pod-name]
 
-但執行 helm upgrade [release-name] -n [namespace] example-helm-chart/ 會失敗 
+```
 
-請根據錯誤訊息讓 helm chart 成功部署
+## 實作 
+
+依照先前講師示範的方式，先將 example-helm-chart/ 的 chart 使用 ArgoCD 部署到環境中
+
+進行修改將服務部署到環境中，且 test-job 成功執行結束
+
+deploy-python 執行時需要有 `REDIS_HOST` 及 `REDIS_PORT`，並且會使用這兩個變數連線到 redis

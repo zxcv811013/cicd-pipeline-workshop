@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: python-test-job
+  labels:
+    app: test
+  annotations:
+    "helm.sh/hook": test
+spec:
+  template:
+    metadata:
+      name: python-test
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: wget
+          image: nginx
+          command: ["/bin/sh"]
+          args: 
+            - -c
+            - |
+              response=$(curl -s -o /dev/null -w "%{http_code}" http://python-svc:5000/insert/k1/v1)
+              if [ $response -eq 500 ]; then
+                echo "Server returned 500 error"
+                exit 1
+              else
+                echo "Request successful"
+                exit 0
+              fi
+      restartPolicy: Never
+  backoffLimit: 4
