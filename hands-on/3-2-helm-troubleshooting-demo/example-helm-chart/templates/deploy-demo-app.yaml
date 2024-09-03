@@ -25,11 +25,11 @@ spec:
         - name: REDIS_HOST
           value: {{ .Values.demoapp.redis.host }}
         - name: REDIS_PORT
-          value: {{ .Values.demoapp.redis.port | quote }}
+          value: {{ .Values.demoapp.redis.port }}
         ports:
-        - containerPort: {{ .Values.demoapp.service.port }}
+        - containerPort: {{ .Values.demoapp.service.port | quote }}
 ---
-{{- if .Values.demoapp.service.enabled -}}
+{{- if .Values.demoappp.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:

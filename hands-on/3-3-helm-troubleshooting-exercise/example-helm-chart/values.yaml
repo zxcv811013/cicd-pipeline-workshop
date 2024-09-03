@@ -1,13 +1,14 @@
-workshop-app:
+demoapp:
   replicaCount: 1
-  image: registry.srcmesh.dev/workshop/workshop-app:0.1
+  image: registry.srcmesh.dev/workshop/python:0.1
   service:
-    name: workshop-app-service
+    enabled: true
+    name: python-service
     port: 5000
     targetPort: 5000
   redis:
-    host: redis-svc
-    port: 6300
+    host: redis-service
+    port: 6379
 
 redis:
   image: redis:latest

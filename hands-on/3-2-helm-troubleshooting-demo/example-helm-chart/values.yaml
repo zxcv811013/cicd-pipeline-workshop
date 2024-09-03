@@ -8,12 +8,11 @@ demoapp:
     targetPort: 5000
   redis:
     host: redis-svc
-    port: 6379
+    port: 6378
 
 redis:
   image: redis:latest
   service:
-    enabled: true
     name: redis-svc
     port: 6379
     targetPort: 6379
