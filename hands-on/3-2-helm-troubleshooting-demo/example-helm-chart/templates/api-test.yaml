@@ -21,13 +21,20 @@ spec:
           args: 
             - -c
             - |
-              response=$(curl -s -o /dev/null -w "%{http_code}" http://python-svc:5000/insert/k1/v1)
-              if [ $response -eq 500 ]; then
-                echo "Server returned 500 error"
-                exit 1
-              else
-                echo "Request successful"
-                exit 0
+              response=$(curl -s -o /dev/null -w "%{http_code},%{time_total},%{errormsg}" -m 5 http://python-svc:5000/insert/k1/v1)
+              
+              http_code=$(echo $response | cut -d',' -f1)
+              time_total=$(echo $response | cut -d',' -f2)
+              error_msg=$(echo $response | cut -d',' -f3)
+              
+              if [ -n "$error_msg" ]; then
+                  echo "Error: $error_msg"
+                  exit 1
               fi
+              if [ $http_code -ne 200 ]; then
+                  echo "Error: Unexpected HTTP status code: $http_code"
+                  exit 1
+              fi
+              echo "Health check passed. Response time: ${time_total}s"
       restartPolicy: Never
   backoffLimit: 4
