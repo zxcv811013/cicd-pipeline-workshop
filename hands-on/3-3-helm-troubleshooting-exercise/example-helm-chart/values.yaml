@@ -1,8 +1,7 @@
-demoapp:
+workshopapp:
   replicaCount: 1
   image: registry.srcmesh.dev/workshop/python:0.1
   service:
-    enabled: true
     name: python-service
     port: 5000
     targetPort: 5000
@@ -13,6 +12,7 @@ demoapp:
 redis:
   image: redis:latest
   service:
+    enabled: true
     name: redis-svc
     port: 6379
     targetPort: 6379
