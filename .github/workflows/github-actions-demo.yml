@@ -18,8 +18,8 @@ jobs:
       # build and push image
       - name: Build and push
         run: |
-          docker build -t weichih1013/fubondemo/app:${{ github.sha }} hands-on/1-build-push-image/python-app
-          docker push weichih1013/fubondemo/app:${{ github.sha }}
+          docker build -t weichih1013/fubondemo:${{ github.sha }} hands-on/1-build-push-image/python-app
+          docker push weichih1013/fubondemo:${{ github.sha }}
 
   image_scan:
     needs: build
