@@ -2,6 +2,7 @@ demoapp:
   replicaCount: 1
   image: registry.srcmesh.dev/workshop/python:0.1
   service:
+    enabled: true
     name: python-service
     port: 5000
     targetPort: 5000
