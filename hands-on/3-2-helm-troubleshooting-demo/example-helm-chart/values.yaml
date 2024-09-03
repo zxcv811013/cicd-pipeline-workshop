@@ -7,7 +7,7 @@ demoapp:
     port: 5000
     targetPort: 5000
   redis:
-    host: redis-service
+    host: redis-svc
     port: 6379
 
 redis:
