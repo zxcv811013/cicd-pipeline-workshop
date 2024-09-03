@@ -6,24 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+
       # clone source code
       - name: Checkout
         uses: actions/checkout@v3
 
-      # registry login
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
       # build and push image
       - name: Build and push
         run: |
-          docker build -t ${{ secrets.DOCKER_REGISTRY }}/workshop/hahaha:0.0.1 hands-on/1-build-push-image/python-app
-          docker push ${{ secrets.DOCKER_REGISTRY }}/workshop/hahaha:0.0.1
+          docker build -t weichih1013/fubondemo/hahaha:0.0.1 hands-on/1-build-push-image/python-app
+          docker push weichih1013/fubondemo/hahaha:0.0.1
 
   image_scan:
     needs: build
