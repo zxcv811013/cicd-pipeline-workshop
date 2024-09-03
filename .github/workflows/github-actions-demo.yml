@@ -11,11 +11,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Login to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
       # build and push image
       - name: Build and push
         run: |
-          docker build -t weichih1013/fubondemo/hahaha:0.0.1 hands-on/1-build-push-image/python-app
-          docker push weichih1013/fubondemo/hahaha:0.0.1
+          docker build -t weichih1013/fubondemo/app:${{ github.sha }} hands-on/1-build-push-image/python-app
+          docker push weichih1013/fubondemo/app:${{ github.sha }}
 
   image_scan:
     needs: build
